@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "papapaframe": {
+      "hosting": {
+        "papapaframe": [
+          "papapaframe"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "papapaframe"
+  }
+}
