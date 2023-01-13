@@ -1,3 +1,37 @@
-<p>upload-main-page works!</p>
-<input type="file" (change)="chooseFile($event)">
-<button (click)="uploadFile()">Upload</button>
+
+<div *ngIf="!loggedin">
+    <div class="login">
+        <mat-form-field appearance="fill">
+          <mat-label>{{ passwordIncorrect ? "Passwort Inkorrekt" : "Bitte Passwort eingeben" }}</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'" (change)="typedPasswordChange($event)">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+        <button mat-raised-button [color]="passwordIncorrect ? 'warn'  : 'primary'" (click)="login()">Login</button>
+      </div>
+</div>
+
+<div *ngIf="loggedin">
+    <div class="form-container">
+        <mat-form-field appearance="fill">
+            <mat-label>E-Mail</mat-label>
+            <input matInput (change)="updateValue('email', $event)">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+          <mat-label>Name</mat-label>
+            <input matInput (change)="updateValue('owner', $event)">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Textarea</mat-label>
+            <textarea style="min-height:100px;" matInput (change)="updateValue('comment', $event)"></textarea>
+          </mat-form-field>
+          <br>
+          <br>
+        <input #csvInput hidden="true" type="file" onclick="this.value=null" (change)="chooseFile($event)" accept="image/jpg,image/png,image/jpeg,.pfd"/>
+        <button mat-raised-button [color]="!this.file ? 'primary' : 'accent'" (click)="csvInput.click()">{{ !this.file ? "Bild auswählen" : "Bild ausgewählt" }}</button>
+        <br>
+        <br>
+        <button mat-raised-button color="primary" [disabled]="!uploadReady()"   (click)="uploadFile()">Upload</button>
+    </div>
+</div>

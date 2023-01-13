@@ -98,7 +98,7 @@ export class ImagestorageService {
       console.log(filename + " uploaded.");
     });
 
-    return
+    return true;
   }
 
   async updateReaction(id:string,reaction:string){

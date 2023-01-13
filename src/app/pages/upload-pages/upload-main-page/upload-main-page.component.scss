@@ -1,0 +1,36 @@
+
+.login {
+    width:100%;
+    max-width:500px;
+    margin:auto;
+    display: block;
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    padding:5%;
+    box-sizing: border-box;
+    & > * {
+        width:100%;
+    }
+}
+
+
+.form-container {
+    width:100%;
+    max-width:500px;
+    margin:auto;
+    display: block;
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    padding:5%;
+    box-sizing: border-box;
+    & > * {
+        width:100%;
+    }
+}
+
