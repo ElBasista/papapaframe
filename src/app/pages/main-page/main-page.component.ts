@@ -9,7 +9,7 @@ import { ImageDataObj, ImageMetadata, ImagestorageService } from 'src/app/shared
 export class MainPageComponent implements OnInit {
 
   image:ImageDataObj | null = null;
-  reactedTo:number = 0;
+  reactedTo:string = "";
   reaction:string = "";
 
   constructor(public imagestorage: ImagestorageService) { 
@@ -27,8 +27,9 @@ export class MainPageComponent implements OnInit {
   react(reaction:string){
     console.log(reaction);
     if(this.image){
-      this.reactedTo = this.image?.metadata.timestamp
+      this.reactedTo = this.image.id
       this.reaction = reaction;
+      this.imagestorage.updateReaction(this.image.id, reaction);
     }
   }
 

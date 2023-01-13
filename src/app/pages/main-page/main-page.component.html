@@ -2,7 +2,7 @@
 <div class="bg">
     <ng-container *ngIf="this.image != null">
         <div class="image" [ngStyle]="{'background-image': 'url(' + image.url + ')'}">
-            <div class="reactions" [ngClass]="reactedTo == image.metadata.timestamp ? 'invisible' : ''"> 
+            <div class="reactions" [ngClass]="reactedTo == image.id ? 'invisible' : ''"> 
                 <button mat-fab color="primary" aria-label="Example icon button with a delete icon" (click)="react('👍')">
                     👍
                 </button>
@@ -16,8 +16,8 @@
                 </button>
             </div>
 
-            <div class="reactions" [ngClass]="reactedTo != image.metadata.timestamp ? 'invisible' : ''">
-                <p class="reacted">Hey: {{ this.reaction }}</p>
+            <div class="reactions" [ngClass]="reactedTo != image.id ? 'invisible' : ''">
+                <p class="reacted">{{ this.reaction }}</p>
             </div>
 
             <div class="comment"> 

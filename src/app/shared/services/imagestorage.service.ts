@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { getStorage, ref, getDownloadURL, uploadBytes, UploadMetadata, getMetadata, listAll } from "@angular/fire/storage";
+import { getStorage, ref, getDownloadURL, uploadBytes, UploadMetadata, getMetadata, listAll,updateMetadata } from "@angular/fire/storage";
 import { Auth, sendPasswordResetEmail, signOut} from '@angular/fire/auth';
+import { orderBy } from '@angular/fire/firestore';
 
 
 
@@ -8,11 +9,13 @@ export interface ImageMetadata{
   owner:string,
   email:string,
   comment:string,
+  reaction:string,
   timestamp:number
 }
 
 export interface ImageDataObj{
   url:string,
+  id:string,
   metadata:ImageMetadata
 }
 
@@ -33,7 +36,7 @@ export class ImagestorageService {
 
     if(!metadata.customMetadata)
     {
-      console.error("Invalid ID: " + id)
+      console.error("Invalid File: " + id)
       return null;
     }
 
@@ -41,10 +44,11 @@ export class ImagestorageService {
       owner: metadata.customMetadata['owner'] ? metadata.customMetadata['owner'] : "",
       email: metadata.customMetadata['email'] ? metadata.customMetadata['email'] : "",
       comment: metadata.customMetadata['comment'] ? metadata.customMetadata['comment'] : "",
+      reaction: metadata.customMetadata['reaction'] ? metadata.customMetadata['reaction'] : "",
       timestamp: metadata.customMetadata['timestamp'] ? Number(metadata.customMetadata['timestamp']) : 0,
     }
 
-    return {url:url, metadata:custommetadata}
+    return {url:url, id:String(custommetadata.timestamp), metadata:custommetadata}
     
   }
 
@@ -82,6 +86,7 @@ export class ImagestorageService {
         owner:owner,
         email:email, 
         comment:comment,
+        reaction:"",
         timestamp:String(timestamp)
       }
     };
@@ -94,5 +99,26 @@ export class ImagestorageService {
     });
 
     return
+  }
+
+  async updateReaction(id:string,reaction:string){
+    const pathReference = ref(this.storage, id);
+    const metadata = await getMetadata(pathReference);
+
+    if(!metadata.customMetadata)
+    {
+      console.error("Invalid File: " + id)
+      return false;
+    }
+
+    let newmetadata = metadata.customMetadata;
+    newmetadata['reaction'] = reaction;
+
+    updateMetadata(pathReference, {
+      customMetadata:newmetadata
+    })
+
+    return true;
+
   }
 }
