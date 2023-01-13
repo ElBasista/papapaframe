@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 @Component({
   selector: 'app-main-page',
@@ -10,7 +11,9 @@ export class MainPageComponent implements OnInit {
   image:string = "/assets/City.jpg";
   reacted:boolean = false;
 
-  constructor() { }
+  constructor(private storage: AngularFireStorage) { 
+    const fileRef = this.storage.ref('City.jpg');
+  }
 
   ngOnInit(): void {
   }

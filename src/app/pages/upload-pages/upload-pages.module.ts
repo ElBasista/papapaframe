@@ -4,14 +4,13 @@ import { CommonModule } from '@angular/common';
 import { UploadPagesRoutingModule } from './upload-pages-routing.module';
 import { UploadMainPageComponent } from './upload-main-page/upload-main-page.component';
 
-
 @NgModule({
   declarations: [
-    UploadMainPageComponent
+    UploadMainPageComponent,
   ],
   imports: [
     CommonModule,
-    UploadPagesRoutingModule
+    UploadPagesRoutingModule,
   ]
 })
 export class UploadPagesModule { }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-upload-main-page',
   templateUrl: './upload-main-page.component.html',
