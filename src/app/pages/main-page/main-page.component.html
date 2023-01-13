@@ -1,17 +1,29 @@
 
-<div class="image" [ngStyle]="{'background-image': 'url(' + image+ ')'}">
-    <div class="reactions" [ngClass]="reacted ? 'invisible' : ''"> 
-        <button mat-fab color="primary" aria-label="Example icon button with a delete icon" (click)="react('👍')">
-            👍
-        </button>
+<div class="bg">
+    <ng-container *ngIf="this.image != null">
+        <div class="image" [ngStyle]="{'background-image': 'url(' + image.url + ')'}">
+            <div class="reactions" [ngClass]="reactedTo == image.metadata.timestamp ? 'invisible' : ''"> 
+                <button mat-fab color="primary" aria-label="Example icon button with a delete icon" (click)="react('👍')">
+                    👍
+                </button>
+        
+                <button mat-fab color="primary" aria-label="Example icon button with a delete icon" (click)="react('😍')">
+                    😍
+                </button>
+        
+                <button mat-fab color="primary" aria-label="Example icon button with a delete icon" (click)="react('💪')">
+                    💪
+                </button>
+            </div>
 
-        <button mat-fab color="primary" aria-label="Example icon button with a delete icon" (click)="react('😍')">
-            😍
-        </button>
+            <div class="reactions" [ngClass]="reactedTo != image.metadata.timestamp ? 'invisible' : ''">
+                <p class="reacted">Hey: {{ this.reaction }}</p>
+            </div>
 
-        <button mat-fab color="primary" aria-label="Example icon button with a delete icon" (click)="react('💪')">
-            💪
-        </button>
-
-    </div>
+            <div class="comment"> 
+                <p>{{ this.image.metadata.comment }}</p>
+                <p>von {{ this.image.metadata.owner }}</p>
+            </div>
+        </div>
+    </ng-container>
 </div>

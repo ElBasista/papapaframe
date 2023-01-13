@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { ImageDataObj, ImageMetadata, ImagestorageService } from 'src/app/shared/services/imagestorage.service';
 
 @Component({
   selector: 'app-main-page',
@@ -8,11 +8,17 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 })
 export class MainPageComponent implements OnInit {
 
-  image:string = "/assets/City.jpg";
-  reacted:boolean = false;
+  image:ImageDataObj | null = null;
+  reactedTo:number = 0;
+  reaction:string = "";
 
-  constructor(private storage: AngularFireStorage) { 
-    const fileRef = this.storage.ref('City.jpg');
+  constructor(public imagestorage: ImagestorageService) { 
+    this.getImageURL();
+  }
+
+  async getImageURL(){
+    let newestImage = await this.imagestorage.getNewestImage();
+    this.image = newestImage ? newestImage : null;
   }
 
   ngOnInit(): void {
@@ -20,7 +26,10 @@ export class MainPageComponent implements OnInit {
 
   react(reaction:string){
     console.log(reaction);
-    this.reacted = !this.reacted;
+    if(this.image){
+      this.reactedTo = this.image?.metadata.timestamp
+      this.reaction = reaction;
+    }
   }
 
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ImagestorageService } from 'src/app/shared/services/imagestorage.service';
 
 
 @Component({
@@ -8,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UploadMainPageComponent implements OnInit {
 
-  constructor() { }
+  file:any;
+  owner:string = "";
+  email:string = "";
+
+  constructor(public imagestorage:ImagestorageService) { }
+
 
   ngOnInit(): void {
+  }
+
+  chooseFile(event:any){
+    this.file = event.target.files[0];
+  }
+
+  async uploadFile(){
+    await this.imagestorage.uploadImage(this.file, "Blabla", "E-Mail", "Ein schönes Foto");
   }
 
 }

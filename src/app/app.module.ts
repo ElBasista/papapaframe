@@ -12,9 +12,7 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { provideStorage,getStorage } from '@angular/fire/storage';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
-import {MatIconModule} from '@angular/material/icon';
-import { AngularFireStorageModule } from '@angular/fire/compat/storage';
-import { AngularFireModule } from '@angular/fire/compat';
+import { MatIconModule } from '@angular/material/icon';
 
 
 
@@ -29,8 +27,6 @@ import { AngularFireModule } from '@angular/fire/compat';
     AppRoutingModule,
     MatButtonModule,
     MatIconModule,
-    AngularFireStorageModule,
-    AngularFireModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),
