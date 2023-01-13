@@ -14,6 +14,12 @@ export class MainPageComponent implements OnInit {
 
   constructor(public imagestorage: ImagestorageService) { 
     this.getImageURL();
+
+
+    setTimeout(() => {
+      location.reload();
+    }, 14400000)
+
   }
 
   async getImageURL(){
