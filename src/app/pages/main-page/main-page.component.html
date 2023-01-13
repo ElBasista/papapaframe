@@ -1,1 +1,17 @@
-<p>main-page works!</p>
+
+<div class="image" [ngStyle]="{'background-image': 'url(' + image+ ')'}">
+    <div class="reactions" [ngClass]="reacted ? 'invisible' : ''"> 
+        <button mat-fab color="primary" aria-label="Example icon button with a delete icon" (click)="react('👍')">
+            👍
+        </button>
+
+        <button mat-fab color="primary" aria-label="Example icon button with a delete icon" (click)="react('😍')">
+            😍
+        </button>
+
+        <button mat-fab color="primary" aria-label="Example icon button with a delete icon" (click)="react('💪')">
+            💪
+        </button>
+
+    </div>
+</div>

@@ -7,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainPageComponent implements OnInit {
 
+  image:string = "/assets/City.jpg";
+  reacted:boolean = false;
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  react(reaction:string){
+    console.log(reaction);
+    this.reacted = !this.reacted;
   }
 
 }
