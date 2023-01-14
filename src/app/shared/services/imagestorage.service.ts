@@ -53,7 +53,6 @@ export class ImagestorageService {
   }
 
   async getNewestImage(){
-    console.log("lets go")
     const storage = getStorage();
 
     // Create a reference under which you want to list
@@ -63,11 +62,13 @@ export class ImagestorageService {
     let list = await listAll(listRef);
 
     let id:string | null = null;
+    let count = 0;
     list.items.forEach((itemRef) => {
       // All the items under listRef.
       id = String(itemRef.fullPath);
-      console.log(itemRef.fullPath);
+      count++;
     });
+    console.log("Images Total: " + String(count));
     if(id){
       return this.getImage(id);
     } else {

@@ -14,28 +14,47 @@ export class MainPageComponent implements OnInit {
 
   constructor(public imagestorage: ImagestorageService) { 
     this.getImageURL();
+    this.setRestart();
+    this.setReload();
+
+  
+
+  }
 
 
+  setRestart(){
     setTimeout(() => {
       location.reload();
     }, 14400000)
 
   }
 
+  setReload(){
+    let that = this;
+    setInterval(() => {
+      that.getImageURL();
+    }, 1800000)
+  }
+
   async getImageURL(){
     let newestImage = await this.imagestorage.getNewestImage();
     this.image = newestImage ? newestImage : null;
+    if(this.image){
+      this.reactedTo = this.image.metadata.reaction != "" ? this.image.id : "";
+      this.reaction = this.image.metadata.reaction != "" ? this.image.metadata.reaction : "";
+    }
   }
 
   ngOnInit(): void {
   }
 
-  react(reaction:string){
+  async react(reaction:string){
     console.log(reaction);
     if(this.image){
       this.reactedTo = this.image.id
       this.reaction = reaction;
       this.imagestorage.updateReaction(this.image.id, reaction);
+      this.getImageURL();
     }
   }
 
