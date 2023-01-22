@@ -10,6 +10,7 @@ export interface ImageMetadata{
   email:string,
   comment:string,
   reaction:string,
+  reactiontimestamp:number,
   timestamp:number
 }
 
@@ -45,6 +46,7 @@ export class ImagestorageService {
       email: metadata.customMetadata['email'] ? metadata.customMetadata['email'] : "",
       comment: metadata.customMetadata['comment'] ? metadata.customMetadata['comment'] : "",
       reaction: metadata.customMetadata['reaction'] ? metadata.customMetadata['reaction'] : "",
+      reactiontimestamp: metadata.customMetadata['reactiontimestamp'] ? Number(metadata.customMetadata['reactiontimestamp']) : 0,
       timestamp: metadata.customMetadata['timestamp'] ? Number(metadata.customMetadata['timestamp']) : 0,
     }
 
@@ -103,6 +105,7 @@ export class ImagestorageService {
   }
 
   async updateReaction(id:string,reaction:string){
+    const timestamp: number = Date.now();
     const pathReference = ref(this.storage, id);
     const metadata = await getMetadata(pathReference);
 
@@ -114,6 +117,7 @@ export class ImagestorageService {
 
     let newmetadata = metadata.customMetadata;
     newmetadata['reaction'] = reaction;
+    newmetadata['reactiontimestamp'] = String(timestamp);
 
     updateMetadata(pathReference, {
       customMetadata:newmetadata
