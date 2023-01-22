@@ -14,26 +14,21 @@ export class MainPageComponent implements OnInit {
 
   constructor(public imagestorage: ImagestorageService) { 
     this.getImageURL();
-    this.setRestart();
-    this.setReload();
-
-  
-
+    this.setRestart(4 * 60 * 60 * 1000);
+    this.setReload(0.5 * 60 * 60 * 1000);
   }
 
-
-  setRestart(){
+  setRestart(time:number){
     setTimeout(() => {
       location.reload();
-    }, 14400000)
-
+    }, time)
   }
 
-  setReload(){
+  setReload(time:number){
     let that = this;
     setInterval(() => {
       that.getImageURL();
-    }, 1800000)
+    }, time)
   }
 
   async getImageURL(){
@@ -49,12 +44,13 @@ export class MainPageComponent implements OnInit {
   }
 
   async react(reaction:string){
+    
     console.log(reaction);
     if(this.image){
       this.reactedTo = this.image.id
       this.reaction = reaction;
       this.imagestorage.updateReaction(this.image.id, reaction);
-      this.getImageURL();
+      //this.getImageURL();
     }
   }
 

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { getStorage, ref, getDownloadURL, uploadBytes, UploadMetadata, getMetadata, listAll,updateMetadata } from "@angular/fire/storage";
-import { Auth, sendPasswordResetEmail, signOut} from '@angular/fire/auth';
-import { orderBy } from '@angular/fire/firestore';
+import { Auth } from '@angular/fire/auth';
 
 
 
@@ -26,6 +25,7 @@ export interface ImageDataObj{
 export class ImagestorageService {
 
   readonly storage = getStorage();
+
   constructor(public auth:Auth) { }
 
 
@@ -126,4 +126,5 @@ export class ImagestorageService {
     return true;
 
   }
+
 }
